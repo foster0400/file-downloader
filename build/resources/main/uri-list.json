@@ -1,0 +1,5 @@
+[
+  "http://example.com/file1.txt",
+  "ftp://example.com/file2.txt",
+  "sftp://example.com/file3.txt"
+]
