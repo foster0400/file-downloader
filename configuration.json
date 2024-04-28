@@ -1,0 +1,5 @@
+{
+  "downloadLocation" : "~/test",
+  "numberOfRetry" : "3",
+  "corePoolSize" : "2"
+}
