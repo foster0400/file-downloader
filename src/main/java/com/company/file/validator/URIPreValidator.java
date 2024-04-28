@@ -33,7 +33,6 @@ public class URIPreValidator {
   public URIPreValidator validateAll() {
     for (String uriString : uriStringSet) {
       URI uri = generateURI(uriString);
-      System.out.println(uri);
       if (uri == null) {
         invalidSyntaxURISet.add(uriString);
         continue;
@@ -53,7 +52,6 @@ public class URIPreValidator {
     try {
       return new URI(uriString);
     } catch (URISyntaxException e) {
-      System.out.println("exception");
       return null;
     }
   }

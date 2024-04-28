@@ -19,7 +19,6 @@ public class FileDownloaderUtil {
    * @param outputPath where the file is going to be saved
    */
   public static void saveFile(InputStream inputStream, String outputPath) {
-    System.out.println("outputPath : " + outputPath);
     ReadableByteChannel readableByteChannel = null;
     FileOutputStream fileOutputStream = null;
     FileChannel fileChannel = null;

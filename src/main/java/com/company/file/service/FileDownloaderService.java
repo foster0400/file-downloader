@@ -175,48 +175,48 @@ public class FileDownloaderService {
     return sb.toString();
   }
 
-  //public static void main(String[] args) {
-  //  ObjectMapper objectMapper = new ObjectMapper();
-  //  if (args.length == 0) {
-  //    log.info("need to input 2 file path as arguments : uri-list.json and configuration.json\n" +
-  //        "example : /Users/chandra/uri-list.json /Users/chandra/configuration.json");
-  //    return;
-  //  }
-  //  if (args.length == 1) {
-  //    log.info("need to input 2 file path as arguments : uri-list.json and configuration.json\n" +
-  //        "example : /Users/chandra/uri-list.json /Users/chandra/configuration.json");
-  //    return;
-  //  }
-  //
-  //  Set<String> uriSet;
-  //  DownloadConfiguration downloadConfiguration;
-  //  try {
-  //    uriSet = new HashSet<>(objectMapper.readValue(new File(args[0]), new TypeReference<List<String>>() {
-  //    }));
-  //    downloadConfiguration = objectMapper.readValue(new File(args[1]), new TypeReference<>() {
-  //    });
-  //  } catch (Exception e) {
-  //    log.error("error when trying to get uri list and configuration", e);
-  //    return;
-  //  }
-  //
-  //  FileDownloader httpFileDownloader = new HttpFileDownloader();
-  //
-  //  Map<String, FileDownloader> fileDownloaderProtocolRegistry = Map.of(
-  //      SupportedProtocolConstant.HTTPS_PROTOCOL, httpFileDownloader,
-  //      SupportedProtocolConstant.HTTP_PROTOCOL, httpFileDownloader,
-  //      SupportedProtocolConstant.FTP_PROTOCOL, new FtpFileDownloader(),
-  //      SupportedProtocolConstant.SFTP_PROTOCOL, new SftpFileDownloader()
-  //  );
-  //
-  //  ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(downloadConfiguration.getCorePoolSize());
-  //  FileDownloaderService fileDownloaderService = new FileDownloaderService(
-  //      Clock.systemUTC(),
-  //      fileDownloaderProtocolRegistry,
-  //      scheduledExecutorService);
-  //
-  //  fileDownloaderService.downloadBulk(uriSet, downloadConfiguration.getNumberOfRetry(), downloadConfiguration.getDownloadLocation());
-  //  scheduledExecutorService.shutdown();
-  //}
+  public static void main(String[] args) {
+    ObjectMapper objectMapper = new ObjectMapper();
+    if (args.length == 0) {
+      log.info("need to input 2 file path as arguments : uri-list.json and configuration.json\n" +
+          "example : /Users/chandra/uri-list.json /Users/chandra/configuration.json");
+      return;
+    }
+    if (args.length == 1) {
+      log.info("need to input 2 file path as arguments : uri-list.json and configuration.json\n" +
+          "example : /Users/chandra/uri-list.json /Users/chandra/configuration.json");
+      return;
+    }
+
+    Set<String> uriSet;
+    DownloadConfiguration downloadConfiguration;
+    try {
+      uriSet = new HashSet<>(objectMapper.readValue(new File(args[0]), new TypeReference<List<String>>() {
+      }));
+      downloadConfiguration = objectMapper.readValue(new File(args[1]), new TypeReference<>() {
+      });
+    } catch (Exception e) {
+      log.error("error when trying to get uri list and configuration", e);
+      return;
+    }
+
+    FileDownloader httpFileDownloader = new HttpFileDownloader();
+
+    Map<String, FileDownloader> fileDownloaderProtocolRegistry = Map.of(
+        SupportedProtocolConstant.HTTPS_PROTOCOL, httpFileDownloader,
+        SupportedProtocolConstant.HTTP_PROTOCOL, httpFileDownloader,
+        SupportedProtocolConstant.FTP_PROTOCOL, new FtpFileDownloader(),
+        SupportedProtocolConstant.SFTP_PROTOCOL, new SftpFileDownloader()
+    );
+
+    ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(downloadConfiguration.getCorePoolSize());
+    FileDownloaderService fileDownloaderService = new FileDownloaderService(
+        Clock.systemUTC(),
+        fileDownloaderProtocolRegistry,
+        scheduledExecutorService);
+
+    fileDownloaderService.downloadBulk(uriSet, downloadConfiguration.getNumberOfRetry(), downloadConfiguration.getDownloadLocation());
+    scheduledExecutorService.shutdown();
+  }
 
 }
